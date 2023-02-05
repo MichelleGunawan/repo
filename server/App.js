@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
+const expressValidator = require("express-validator");
 
 // app
 const app = express();
@@ -23,9 +25,12 @@ app.use(morgan("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cors({ origin: true, credentials: true }));
+app.use(cookieParser());
+app.use(expressValidator());
 
 // routes
 const testRoutes = require("./routes/routes");
+//const { cookie } = require("express-validator/check");
 app.use("/", testRoutes);
 
 // port
