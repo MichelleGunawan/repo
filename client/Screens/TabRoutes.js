@@ -4,8 +4,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
 import HomeScreen from "./TabScreens/HomeScreen";
 import CommentsScreen from "./TabScreens/CommentsScreen";
-import DiscoverScreen from "./TabScreens/DiscoverScreen";
+import DiscoverScreen from "./TabScreens/Discover/DiscoverAlbum";
 import ProfileScreen from "./TabScreens/ProfileScreen";
+import { DiscoverTabs } from "./TabScreens/Discover/DiscoverTabs";
 
 //// for tabs in bottom nav bar
 //// each tab will have their own navigation stack
@@ -29,7 +30,7 @@ const ProfileStack = createNativeStackNavigator();
 function ProfileStackScreen() {
 	return (
 		<ProfileStack.Navigator>
-			<ProfileStack.Screen name="First Last" component={ProfileScreen} />
+			<ProfileStack.Screen name="Profile" component={ProfileScreen} />
 		</ProfileStack.Navigator>
 	);
 }
@@ -38,7 +39,7 @@ const DiscoverStack = createNativeStackNavigator();
 function DiscoverStackScreen() {
 	return (
 		<DiscoverStack.Navigator>
-			<ProfileStack.Screen name="First Last" component={DiscoverScreen} />
+			<ProfileStack.Screen name="Discover" component={DiscoverTabs} />
 		</DiscoverStack.Navigator>
 	);
 }

@@ -31,7 +31,7 @@ const Grid = () => {
 	return (
 		<FlatList
 			data={data}
-			numColumns={2}
+			numColumns={4}
 			renderItem={renderItem}
 			keyExtractor={(item) => item.id}
 		/>
