@@ -38,7 +38,7 @@ exports.uploadFile = async (req, res) => {
         storage
     });
 
-    upload.single("file")(req, res, function (err) {
+    upload.array("files")(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err);
         } else if (err) {
@@ -50,7 +50,7 @@ exports.uploadFile = async (req, res) => {
 
 exports.getFile = async (req, res) => {
     const gfs = Grid(mongoose.connection.db, mongoose.mongo);
-    gfs.collection("files").findOne({
+    gfs.collection("file").findOne({
         filename: "Screen Shot 2022-11-01 at 9.01.24 PM.png"
     }, (err, file) => {
         if (err) {
