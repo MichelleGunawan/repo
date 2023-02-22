@@ -5,6 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from './TabScreens/HomeScreen';
 import CommentsScreen from './TabScreens/CommentsScreen';
 import ProfileScreen from './TabScreens/ProfileScreen';
+import LoginScreen from './LoginScreen';
+import RegisterScreen from './RegisterScreen';
 
 //// for tabs in bottom nav bar
 //// each tab will have their own navigation stack
@@ -15,7 +17,7 @@ function HomeStackScreen() {
     <HomeStack.Navigator>
       <HomeStack.Screen name="Repo" component={HomeScreen} />
       {/* comments page - just an example of nav stack use */}
-      <HomeStack.Screen name="Comments" component={CommentsScreen} options={{ headerBackTitleVisible: false }}/>    
+      <HomeStack.Screen name="Comments" component={CommentsScreen} options={{ headerBackTitleVisible: false }}/>     
     </HomeStack.Navigator>
   );
 }
@@ -47,6 +49,7 @@ export default function Tabs() {
                 ? 'ios-person' 
                 : 'ios-person-outline';
             }
+
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },

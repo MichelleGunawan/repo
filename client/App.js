@@ -6,21 +6,32 @@ import SplashScreen from './Screens/SplashScreen';
 import LoginScreen from './Screens/LoginScreen';
 import RegisterScreen from './Screens/RegisterScreen';
 
+
 // will include splash, login/register, and landing pages
 // only has landing page now
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      {/* change initial route name once login is set up*/}
-      <Stack.Navigator initialRouteName="TabRoutes">
-        <Stack.Screen
-          name="TabRoutes"
-          component={TabRoutes}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        {/* change initial route name once login is set up*/}
+        <Stack.Navigator initialRouteName="LoginScreen">
+          <Stack.Screen
+            name="TabRoutes"
+            component={TabRoutes}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen 
+            name="LoginScreen"
+            component={LoginScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen 
+            name="RegisterScreen"
+            component={RegisterScreen}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
   );
 }
