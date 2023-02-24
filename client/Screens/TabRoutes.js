@@ -1,11 +1,11 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Ionicons } from "@expo/vector-icons";
-import HomeScreen from "./TabScreens/HomeScreen";
-import CommentsScreen from "./TabScreens/CommentsScreen";
-import DiscoverScreen from "./TabScreens/Discover/DiscoverAlbum";
-import ProfileScreen from "./TabScreens/ProfileScreen";
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
+import HomeScreen from './TabScreens/HomeScreen';
+import CommentsScreen from './TabScreens/CommentsScreen';
+import ProfileScreen from './TabScreens/ProfileScreens/ProfileScreen';
+import EditProfileScreen from './TabScreens/ProfileScreens/EditProfileScreen';
 import { DiscoverTabs } from "./TabScreens/Discover/DiscoverTabs";
 
 //// for tabs in bottom nav bar
@@ -28,12 +28,12 @@ function HomeStackScreen() {
 
 const ProfileStack = createNativeStackNavigator();
 function ProfileStackScreen() {
-	return (
-		<ProfileStack.Navigator>
-			<ProfileStack.Screen name="Profile" component={ProfileScreen} />
-		</ProfileStack.Navigator>
-	);
-}
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="Edit Profile" component={EditProfileScreen} options={{ headerBackTitleVisible: false }}/>
+    </ProfileStack.Navigator>
+  );
 
 const DiscoverStack = createNativeStackNavigator();
 function DiscoverStackScreen() {
@@ -46,7 +46,8 @@ function DiscoverStackScreen() {
 
 const Tab = createBottomTabNavigator();
 export default function Tabs() {
-	return (
+
+return (
 		<Tab.Navigator
 			screenOptions={({ route }) => ({
 				tabBarIcon: ({ focused, color, size }) => {
@@ -58,7 +59,7 @@ export default function Tabs() {
 					} else if (route.name === "Discover") {
 						iconName = focused ? "ios-search" : "ios-search-outline";
 					}
-
+          
 					return <Ionicons name={iconName} size={size} color={color} />;
 				},
 
@@ -83,3 +84,4 @@ export default function Tabs() {
 		</Tab.Navigator>
 	);
 }
+
