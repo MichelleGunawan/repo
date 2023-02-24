@@ -17,5 +17,5 @@ router.post("/login", login);
 router.get("/logout", logout);
 router.get("/user", verifyToken, userById, getLoggedInUser);
 
-router.get("/igSavedPosts", igSavedPosts);
+router.post("/igSavedPosts", igSavedPosts);
 module.exports = router;
