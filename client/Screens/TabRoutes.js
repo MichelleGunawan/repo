@@ -34,6 +34,7 @@ function ProfileStackScreen() {
       <ProfileStack.Screen name="Edit Profile" component={EditProfileScreen} options={{ headerBackTitleVisible: false }}/>
     </ProfileStack.Navigator>
   );
+}
 
 const DiscoverStack = createNativeStackNavigator();
 function DiscoverStackScreen() {
