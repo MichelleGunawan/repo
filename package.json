@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@react-navigation/native": "^6.1.5",
+    "dotenv": "^16.0.3",
+    "instagram-private-api": "^1.45.3",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "request-promise": "^4.2.6"
+  }
+}

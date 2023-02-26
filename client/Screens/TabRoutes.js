@@ -5,7 +5,10 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from './TabScreens/HomeScreen';
 import CommentsScreen from './TabScreens/CommentsScreen';
 import ProfileScreen from './TabScreens/ProfileScreen';
-
+import SplashScreen from './SplashScreen';
+import ConvosScreen from './TabScreens/ConvosScreen';
+import ChatScreen from './TabScreens/ChatScreen';
+import NewChatScreen from './TabScreens/NewChatScreen';
 //// for tabs in bottom nav bar
 //// each tab will have their own navigation stack
 
@@ -29,11 +32,33 @@ function ProfileStackScreen() {
   );
 }
 
+const SplashStack = createNativeStackNavigator();
+function SplashStackScreen() {
+  return (
+    <SplashStack.Navigator>
+      <SplashStack.Screen name="First Last" component={SplashScreen} />
+    </SplashStack.Navigator>
+  );
+}
+
+const ConvosStack = createNativeStackNavigator();
+function ConvosStackScreen({navigation, route}) {
+  return (
+    <ConvosStack.Navigator screenOptions={{headerShown: false, tabBarVisible: false}}>
+      <ConvosStack.Screen name="Convos" component={ConvosScreen} screenOptions={{headerShown: false}}/>
+      <ConvosStack.Screen name="Chat" component={ChatScreen} options={{ headerShown: false, tabBarVisible: false}}/>
+      <ConvosStack.Screen name="NewChat" component={NewChatScreen} options={{ headerShown: false, tabBarVisible: false}}/>
+    </ConvosStack.Navigator>
+  );
+}
+
+
 const Tab = createBottomTabNavigator();
 export default function Tabs() {
   return (
     <Tab.Navigator
     screenOptions={({ route }) => ({
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             if (route.name === 'Home') {
@@ -48,6 +73,16 @@ export default function Tabs() {
                 : 'ios-person-outline';
             }
 
+            else if (route.name === 'Splash') {
+              iconName = focused 
+                ? 'ios-person' 
+                : 'ios-person-outline';
+            }
+
+            else if (route.name === 'ConvosScreen') {
+              iconName = focused? 'ios-person': 'ios-person-outline';
+            }
+
             return <Ionicons name={iconName} size={size} color={color} />;
           },
 
@@ -57,6 +92,8 @@ export default function Tabs() {
       >
       <Tab.Screen name="Home" component={HomeStackScreen} options={{ headerShown: false }}/>
       <Tab.Screen name="Profile" component={ProfileStackScreen} options={{ headerShown: false }}/>
+      <Tab.Screen name="ConvosScreen" component={ConvosStackScreen} options={{ headerShown: false, tabBarStyle: {display: 'none'}}}/>
+      
     </Tab.Navigator>
   );
 }
