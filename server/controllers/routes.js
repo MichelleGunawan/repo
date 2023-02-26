@@ -6,19 +6,6 @@ const {
 const Grid = require("gridfs-stream");
 const mongoose = require("mongoose");
 
-
-exports.getTest = async (req, res) => {
-    res.status(200).json({
-        message: "Test API is working!",
-    })
-}
-
-exports.register = async (req, res) => {
-    res.status(200).json({
-        message: "Register API is working!",
-    })
-}
-
 exports.uploadFile = async (req, res) => {
     const storage = new GridFsStorage({
         url: process.env.MONGO_URI,
