@@ -1,10 +1,9 @@
-const { randomUUID } = require("crypto");
 const multer = require("multer");
 const {
     GridFsStorage
 } = require("multer-gridfs-storage");
-const Grid = require("gridfs-stream");
 const mongoose = require("mongoose");
+const ObjectID = require("mongodb").ObjectID;
 
 
 exports.getTest = async (req, res) => {
@@ -44,23 +43,17 @@ exports.uploadFile = async (req, res) => {
         } else if (err) {
             return res.status(500).json(err);
         }
-        return res.status(200).send(req.file);
+        console.log(req);
+        return res.status(200).send(req.files);
     });
 }
 
 exports.getFile = async (req, res) => {
-    const gfs = Grid(mongoose.connection.db, mongoose.mongo);
-    gfs.collection("file").findOne({
-        filename: "Screen Shot 2022-11-01 at 9.01.24 PM.png"
-    }, (err, file) => {
-        if (err) {
-            return res.status(500).json(err);
-        }
-        if (!file) {
-            return res.status(404).json({
-                err: "No file exists"
-            });
-        }
-        return res.status(200).json(file);
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+        bucketName: "files"
     });
+
+    // A download stream reads the file from GridFs
+    const readStream = bucket.openDownloadStream(new ObjectID("63fc975ff5ec1fe50487d44b"));
+    readStream.pipe(res);
 }
