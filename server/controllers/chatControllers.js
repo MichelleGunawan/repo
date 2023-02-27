@@ -2,7 +2,9 @@ const Chat = require('../models/chatModel');
 const User = require("../models/user");
 const asyncHandler = require('express-async-handler');
 
-
+//@description     Create or fetch One to One Chat
+//@route           POST /api/chat/
+//@access          Protected
 exports.accessChat = asyncHandler(async(req,res)=>{
     const {userId} = req.body;
 
@@ -14,8 +16,7 @@ exports.accessChat = asyncHandler(async(req,res)=>{
     var isChat = await Chat.find({
         isGroupChat: false,
         $and:[
-            // https://www.youtube.com/watch?v=HArC6GxkMMI&list=PLKhlp2qtUcSZsGkxAdgnPcHioRr-4guZf&index=10
-            //{userName: {$elemMatch:{$eq:req.user._id}}},
+            {userName: {$elemMatch:{$eq:req._id}}},
             {userName: {$elemMatch:{$eq:userId}}}
         ]
     })
@@ -33,7 +34,7 @@ exports.accessChat = asyncHandler(async(req,res)=>{
         var chatData = {
             chatName: 'sender',
             isGroupChat: false,
-            users:[userId]//req.user.id, userId]
+            users:[req._id, userId]
         };
 
         try{
@@ -51,11 +52,15 @@ exports.accessChat = asyncHandler(async(req,res)=>{
     }
 });
 
+
+//@description     Fetch all chats for a user
+//@route           GET /api/chat/
+//@access          Protected
 exports.fetchChats = asyncHandler(async(req, res) =>{
-    const {userId} = req.body;
+    //const {userId} = req.body;
 
     try{
-        Chat.find({userName: {$elemMatch:{$eq:userId}}}) //replace with {$eq:req.user._id} once auth works
+        Chat.find({userName: {$elemMatch:{$eq:req._id}}}) 
         .populate('users','-password')
         .populate('groupAdmin', '-password')
         .populate('latestMessage')
