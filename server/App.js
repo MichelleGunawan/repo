@@ -11,6 +11,9 @@ const expressValidator = require("express-validator");
 // app
 const app = express();
 
+// Stop deprecation warnings
+mongoose.set('strictQuery', true);
+
 // db
 mongoose
 	.connect(process.env.MONGO_URI, {
@@ -19,6 +22,16 @@ mongoose
 	})
 	.then(() => console.log("DB CONNECTED"))
 	.catch((err) => console.log("DB CONNECTION ERROR", err));
+
+let bucket;
+mongoose.connection.on("connected", () => {
+	const client = mongoose.connections[0].client;
+	const db = mongoose.connections[0].db;
+	bucket = new mongoose.mongo.GridFSBucket(db, {
+		bucketName: "files"
+	});
+});
+
 
 // middleware
 app.use((req, res, next) => {
