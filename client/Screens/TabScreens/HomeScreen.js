@@ -15,7 +15,6 @@ export default function HomeScreen({ navigation }) {
       quality: 1,
     });
 
-
     if (!result.canceled) {
 
       const data = new FormData();
