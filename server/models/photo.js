@@ -14,7 +14,7 @@ const photoSchema = new mongoose.Schema({
             type: String, 
         }
     ],
-}, { collection: 'userHistory',
+}, { collection: 'photos',
 versionKey: false
 })
 
