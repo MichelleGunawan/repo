@@ -35,12 +35,17 @@ exports.uploadFile = async (req, res) => {
     });
 }
 
-exports.getFile = async (req, res) => {
+function getFileById(id) {
     const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
         bucketName: "files"
     });
 
     // A download stream reads the file from GridFs
-    const readStream = bucket.openDownloadStream(new ObjectID("63fc975ff5ec1fe50487d44b"));
+    const readStream = bucket.openDownloadStream(new ObjectID(id));
+    return readStream;
+}
+
+exports.getFile = async (req, res) => {
+    const readStream = getFileById(req.query.imageId);
     readStream.pipe(res);
 }
