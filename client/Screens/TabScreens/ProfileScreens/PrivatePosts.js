@@ -1,5 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, FlatList, Dimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Dimensions,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import PrivatePostsHeader from "./PrivatePostsHeader";
 
 const data = [
@@ -16,6 +25,8 @@ const data = [
   { key: "K" },
 ];
 
+const numColumns = 2;
+
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
 
@@ -31,19 +42,24 @@ const formatData = (data, numColumns) => {
   return data;
 };
 
-const numColumns = 2;
-const renderItem = ({ item }) => {
-  if (item.empty === true) {
-    return <View style={[styles.item, styles.itemInvisible]} />;
-  }
-  return (
-    <View style={styles.item}>
-      <Text style={styles.itemText}>{item.key}</Text>
-    </View>
-  );
-};
-
 export default function PrivatePosts() {
+  const navigation = useNavigation();
+
+  const renderItem = ({ item }) => {
+    const handleButtonPress = () => {
+      navigation.navigate("ProfilePage");
+    };
+
+    if (item.empty === true) {
+      return <View style={[styles.item, styles.itemInvisible]} />;
+    }
+    return (
+      <TouchableOpacity onPress={handleButtonPress} style={styles.item}>
+        <Text style={styles.itemText}>{item.key}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <FlatList
       data={formatData(data, numColumns)}
