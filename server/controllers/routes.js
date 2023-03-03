@@ -1,10 +1,9 @@
-const { randomUUID } = require("crypto");
 const multer = require("multer");
 const {
     GridFsStorage
 } = require("multer-gridfs-storage");
-const Grid = require("gridfs-stream");
 const mongoose = require("mongoose");
+const ObjectID = require("mongodb").ObjectID;
 
 exports.uploadFile = async (req, res) => {
     const storage = new GridFsStorage({
@@ -25,29 +24,28 @@ exports.uploadFile = async (req, res) => {
         storage
     });
 
-    upload.single("file")(req, res, function (err) {
+    upload.array("files")(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err);
         } else if (err) {
             return res.status(500).json(err);
         }
-        return res.status(200).send(req.file);
+        console.log(req);
+        return res.status(200).send(req.files);
     });
 }
 
-exports.getFile = async (req, res) => {
-    const gfs = Grid(mongoose.connection.db, mongoose.mongo);
-    gfs.collection("files").findOne({
-        filename: "Screen Shot 2022-11-01 at 9.01.24 PM.png"
-    }, (err, file) => {
-        if (err) {
-            return res.status(500).json(err);
-        }
-        if (!file) {
-            return res.status(404).json({
-                err: "No file exists"
-            });
-        }
-        return res.status(200).json(file);
+function getFileById(id) {
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+        bucketName: "files"
     });
+
+    // A download stream reads the file from GridFs
+    const readStream = bucket.openDownloadStream(new ObjectID(id));
+    return readStream;
+}
+
+exports.getFile = async (req, res) => {
+    const readStream = getFileById(req.query.imageId);
+    readStream.pipe(res);
 }

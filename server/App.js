@@ -45,6 +45,7 @@ app.use(urlencoded({ extended: false }));
 app.use(cors({ origin: true, credentials: true }, (g)=>g.AllowAnyOrigin()));
 app.use(cookieParser());
 app.use(expressValidator());
+app.use('/uploads', express.static('uploads'));
 
 // routes
 const testRoutes = require("./routes/routes");
