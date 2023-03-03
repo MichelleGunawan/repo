@@ -34,12 +34,18 @@ mongoose.connection.on("connected", () => {
 
 
 // middleware
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+	next();
+  });
 app.use(morgan("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: true, credentials: true }, (g)=>g.AllowAnyOrigin()));
 app.use(cookieParser());
 app.use(expressValidator());
+app.use('/uploads', express.static('uploads'));
 
 // routes
 const testRoutes = require("./routes/routes");

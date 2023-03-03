@@ -6,7 +6,7 @@ exports.verifyToken = (req, res, next) => {
 	// if there is no token in the cookies, request is unauthorized
 	if (!accessToken) {
 		return res.status(403).json({
-			error: "Unauthorized",
+			error: "Unauthorized - no token",
 		});
 	}
 
