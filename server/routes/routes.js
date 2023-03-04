@@ -13,9 +13,6 @@ const { igSavedPosts } = require("../controllers/ig");
 const { userRegisterValidator, userById } = require("../middlewares/user");
 const { verifyToken } = require("../middlewares/auth");
 
-// api routes
-router.get("/test", getTest);
-
 //user routes
 router.post("/upload", uploadFile);
 router.get("/file", getFile);

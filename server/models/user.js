@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const uuidv1 = require("uuidv1");
 const crypto = require("crypto");
+const album = require('./album')
 
 const userSchema = new mongoose.Schema(
 	{
@@ -32,6 +33,54 @@ const userSchema = new mongoose.Schema(
 			required: true,
 		},
 		salt: String,
+
+		//Profile Features
+		profilePhoto: {
+			type: String, //TODO: Jason implement photo blob/GridFS
+			required: false,
+		},
+		userBio: {
+			type: String, 
+			required: false,
+			trim: true,
+		},
+		allPhotos :{
+				type: mongoose.Schema.Types.ObjectId, 
+				ref: 'Albums'
+		}
+		,
+		albums: [
+			{
+				type: mongoose.Schema.Types.ObjectId, 
+				ref: 'Albums'
+			}
+		],
+
+		//User Interactions
+		followers: [
+			{
+				type: mongoose.Schema.Types.ObjectId, 
+				ref: 'Users'
+			}
+		],
+		following: [
+			{
+				type: mongoose.Schema.Types.ObjectId, 
+				ref: 'Users'
+			}
+		],
+		reactionsToAlbums: [
+			{
+				type: mongoose.Schema.Types.ObjectId, 
+				ref: 'Albums'
+			}
+		],
+		prompts: [{
+			prompts: { type: String, 
+			},
+			albumIDs: { type: mongoose.Schema.Types.ObjectId, 
+				ref: 'Albums' }
+		}],
 	},
 	{
 		timestamps: true,
