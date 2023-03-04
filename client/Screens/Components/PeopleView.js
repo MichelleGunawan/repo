@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, Image, TextInput, Pressable} from 'react-native';
+import {View, Text, Image, TextInput, Pressable, StyleSheet,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather, AntDesign, Ionicons, Octicons, MaterialIcons } from '@expo/vector-icons'; 
 
