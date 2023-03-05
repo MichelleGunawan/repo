@@ -1,11 +1,12 @@
 const Album = require("../models/album");
 const Photo = require("../models/photo");
+const User = require("../models/user");
 
 exports.addAlbum = async (req, res) => {
+    const user = await User.findOne({"username": req.body.username});
+    
 	// check if album already exists
-	const albumNameExists = await Album.findOne({
-		name: req.body.name,
-	});
+	const albumNameExists = await Album.findOne({name: req.body.name, owners: user });
 
 	if (albumNameExists) {
 		return res.status(403).json({
@@ -14,17 +15,27 @@ exports.addAlbum = async (req, res) => {
 	}
 
 	// else create a new album
-	const album = new Album(req.body);
-	await album.save();
+	const album = new Album({"name": req.body.name});
+    if(user.album == null){
+        user.album = [];
+    }
 
+    user.albums.push(album);
+    await user.save();
+
+    album.owners.push(user);
+	await album.save();
+    
 	res.status(201).json({
-		message: "Album Creation Successful!",
+		//message: "Album Creation Successful!",
+        album
 	});
 };
 
 exports.addPhotos = async (req, res) => {
+    const user = await User.findOne({"username": req.body.username});
+    const album = await Album.findOne({name: req.body.name, owners: user })
 
-    const album = await Album.findOne({ "name": req.body.name})
     if (album == null) {
         res.status(404).json({ message: "No Album Found" })
         return
@@ -39,12 +50,24 @@ exports.addPhotos = async (req, res) => {
         }
         album.photos.push(nextPhoto)
     }
-    album.save();
+    await album.save();
 
     res.status(201).json({
 		//message: "Added photos successfully!",
         album
 	});
+};
+
+exports.getAllPhotos = async (req, res) => { 
+    const user = await User.findOne({"username": req.body.username});
+    const allPhotosAlbum = await Album.findById(user.allPhotos);
+    res.status(200).json(allPhotosAlbum);
+};
+
+exports.getAlbum = async (req, res) => { 
+    const user = await User.findOne({"username": req.body.username});
+    const album = await Album.findOne({name: req.body.name, owners: user });
+    res.status(200).json(album);
 };
 
 // exports.deletePhotos = async (req, res) => {
