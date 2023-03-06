@@ -3,9 +3,9 @@ const router = express.Router();
 
 // import controllers
 const { uploadFile, getFile } = require("../controllers/routes");
-const { register, login, logout, getLoggedInUser } = require("../controllers/user");
+const { register, login, logout, getLoggedInUser, allUsers } = require("../controllers/user");
 const { addAlbum, addPhotos, getAlbum, getAllPhotos } = require("../controllers/album");
-const { addPhoto, deletePhoto, editCaption, addTags, deleteTags } = require("../controllers/photo");
+const { addPhoto, deletePhoto, editCaption, addTags, deleteTags, getPhoto } = require("../controllers/photo");
 const { igSavedPosts } = require("../controllers/ig");
 
 // import middlewares
@@ -22,6 +22,7 @@ router.get("/user", verifyToken, userById, getLoggedInUser);
 router.post("/upload", uploadFile);
 router.get("/file", getFile);
 router.post("/addPhoto", addPhoto);
+router.get("/getPhoto", getPhoto);
 router.post("/deletePhoto", deletePhoto);
 router.post("/editCaption", editCaption);
 router.post("/addTags", addTags);
