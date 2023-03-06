@@ -52,6 +52,13 @@ const testRoutes = require("./routes/routes");
 //const { cookie } = require("express-validator/check");
 app.use("/", testRoutes);
 
+
+const chatRoutes = require("./routes/chatRoutes");
+app.use("/api/chat", chatRoutes);
+
+const messageRoutes = require("./routes/messageRoutes");
+app.use("/api/message", messageRoutes);
+
 // port
 const port = process.env.PORT || 8080;
 

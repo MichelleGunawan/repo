@@ -8,7 +8,6 @@ const { addAlbum, addPhotos } = require("../controllers/album");
 const { addPhoto, deletePhoto, editCaption, addTags, deleteTags} = require("../controllers/photo");
 const { igSavedPosts } = require("../controllers/ig");
 
-
 // import middlewares
 const { userRegisterValidator, userById } = require("../middlewares/user");
 const { verifyToken } = require("../middlewares/auth");
@@ -31,5 +30,7 @@ router.post("/editCaption", editCaption);
 router.post("/addTags", addTags);
 router.post("/deleteTags", deleteTags);
 
+router.get("/allUsers", allUsers);//verifyToken, allUsers);
 router.post("/igSavedPosts", igSavedPosts);
+
 module.exports = router;
