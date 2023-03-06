@@ -33,5 +33,8 @@ router.post("/addPhotos", addPhotos);
 router.get("/getAllPhotos", getAllPhotos);
 router.get("/getAlbum", getAlbum);
 
+//other routes
+router.get("/allUsers", allUsers);//verifyToken, allUsers);
 router.post("/igSavedPosts", igSavedPosts);
+
 module.exports = router;

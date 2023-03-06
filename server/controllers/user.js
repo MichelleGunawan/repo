@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Album = require("../models/album");
 const jwt = require("jsonwebtoken");
+const asyncHandler = require('express-async-handler')
 require("dotenv").config();
 
 exports.register = async (req, res) => {
@@ -71,6 +72,7 @@ exports.login = async (req, res) => {
 		return res.json({
 			message: "Login Successful!",
 			username,
+			token
 		});
 	});
 };
@@ -92,3 +94,17 @@ exports.getLoggedInUser = (req, res) => {
 		username,
 	});
 };
+
+
+// /api/user?search
+exports.allUsers = asyncHandler(async (req, res) => {
+	const keyword = req.query.search?{
+		$or:[
+			{username: {$regex: req.query.search, $options: "i"}},
+		]
+	}:
+	{}
+
+	const users = await User.find(keyword);//.find({_id:{$ne: req.user._id}});
+	res.send(users);
+});
