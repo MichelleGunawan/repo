@@ -26,6 +26,12 @@ const albumSchema = new mongoose.Schema(
 			type: String,
 			required: false,
 		},
+		owners: [
+			{
+				type: mongoose.Schema.Types.ObjectId, 
+				ref: 'Users'
+			}
+		],
 		followers: [
 			{
 				type: mongoose.Schema.Types.ObjectId, 

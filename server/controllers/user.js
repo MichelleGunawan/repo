@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Album = require("../models/album");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require('express-async-handler')
 require("dotenv").config();
@@ -25,10 +26,17 @@ exports.register = async (req, res) => {
 
 	// if new user, create a new user
 	const user = new User(req.body);
+
+	//create the allPhotos album for the user
+	const album = new Album({ "name": "All"});
+	await album.save();
+
+	user.allPhotos = album;
 	await user.save();
 
 	res.status(201).json({
-		message: "Signup Successful! Please Login to proceed",
+		//message: "Signup Successful! Please Login to proceed",
+		user
 	});
 };
 

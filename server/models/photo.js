@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 const photoSchema = new mongoose.Schema({
     photo: {
-        type: String, //TODO: Jason implement photo blob/GridFS
-        required: false,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'files.files'
     },
     caption: {
         type: String,
