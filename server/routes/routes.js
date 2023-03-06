@@ -3,9 +3,9 @@ const router = express.Router();
 
 // import controllers
 const { uploadFile, getFile } = require("../controllers/routes");
-const { register, login, logout, getLoggedInUser} = require("../controllers/user");
+const { register, login, logout, getLoggedInUser } = require("../controllers/user");
 const { addAlbum, addPhotos, getAlbum, getAllPhotos } = require("../controllers/album");
-const { addPhoto, deletePhoto, editCaption, addTags, deleteTags} = require("../controllers/photo");
+const { addPhoto, deletePhoto, editCaption, addTags, deleteTags } = require("../controllers/photo");
 const { igSavedPosts } = require("../controllers/ig");
 
 // import middlewares
