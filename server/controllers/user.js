@@ -1,7 +1,8 @@
 const User = require("../models/user");
 const Album = require("../models/album");
 const jwt = require("jsonwebtoken");
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
+const Prompt = require("../models/prompt");
 require("dotenv").config();
 
 exports.register = async (req, res) => {
@@ -108,3 +109,88 @@ exports.allUsers = asyncHandler(async (req, res) => {
 	const users = await User.find(keyword);//.find({_id:{$ne: req.user._id}});
 	res.send(users);
 });
+
+exports.addPrompt = async (req, res) => { 
+    const user = await User.findOne({"username": req.body.username});
+	if(user == null){
+		res.status(404).json({ message: "User not found" })
+		return
+	}
+
+	if (user.prompts != null && user.prompts.length >= 7) {
+		res.status(404).json({ message: "User already has 7 prompts" })
+		return
+	}
+	
+	const newPrompt = await Prompt.create({
+		"promptText": req.body.promptText,
+		"owner": user,
+	})
+	user.prompts.push(newPrompt);
+	await user.save();
+
+    res.status(200).json(user.prompts);
+};
+
+exports.deletePrompt = async (req, res) => { 
+    const user = await User.findOne({"username": req.body.username});
+	if(user == null){
+		res.status(404).json({ message: "User not found" })
+		return
+	}
+
+	if (user.prompts == null) {
+		res.status(404).json({ message: "User has no prompts" })
+		return
+	}
+
+	//find the prompt to delete, delete the user pointer, then delete the prompt
+	const promptToDelete = await Prompt.findOne({owner: user, promptText: req.body.promptText })
+	if(promptToDelete == null){
+		res.status(404).json({ message: "No such prompt exists to delete" })
+		return
+	}
+	const index = user.prompts.indexOf(promptToDelete._id);
+	user.prompts.splice(index, 1);
+	await user.save();
+	
+	await Prompt.deleteOne({owner: user, promptText: req.body.promptText })
+    res.status(200).json(user.prompts);
+};
+
+exports.addPhotoToPrompt = async (req, res) => { 
+	const user = await User.findOne({"username": req.body.username});
+	if(user == null){
+		res.status(404).json({ message: "User not found" })
+		return
+	}
+
+    const prompt = await Prompt.findOne({owner: user, promptText: req.body.promptText });
+	if(prompt.photos.length >=5){
+		res.status(404).json({ message: "already 5 photos in this prompt" })
+		return
+	}
+	prompt.photos.push(req.body.photoObjectID);
+	await prompt.save();
+
+    res.status(200).json(prompt.photos);
+};
+
+exports.deletePhotoFromPrompt = async (req, res) => { 
+	const user = await User.findOne({"username": req.body.username});
+	if(user == null){
+		res.status(404).json({ message: "User not found" })
+		return
+	}
+    const prompt = await Prompt.findOne({owner: user, promptText: req.body.promptText });
+	if(prompt == null){
+		res.status(404).json({ message: "Prompt not found" })
+		return
+	}
+	const index = prompt.photos.indexOf(req.body.photoObjectID);
+	console.log(index)
+	prompt.photos.splice(index, 1);
+	await prompt.save();
+
+    res.status(200).json(prompt.photos);
+};
