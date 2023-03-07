@@ -46,6 +46,6 @@ function getFileById(id) {
 }
 
 exports.getFile = async (req, res) => {
-    const readStream = getFileById(req.query.imageId);
+    const readStream = getFileById(req.query.photo);
     readStream.pipe(res);
 }
