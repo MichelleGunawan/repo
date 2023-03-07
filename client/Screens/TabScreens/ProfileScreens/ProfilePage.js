@@ -2,7 +2,7 @@ import { View, FlatList, Image, Text, StyleSheet } from "react-native";
 import MasonryList from "@react-native-seoul/masonry-list";
 
 export default function ProfilePage() {
-  const DATA = [
+  const data = [
     { id: "1", height: 70 },
     { id: "2", height: 130 },
     { id: "3", height: 90 },
@@ -18,14 +18,15 @@ export default function ProfilePage() {
   ];
 
   const renderItem = ({ item }) => (
-    <View
+    <Image
+      source={{ uri: "https://picsum.photos/200/300" }}
       style={[styles.item, { height: item.height, backgroundColor: "grey" }]}
     />
   );
 
   return (
     <MasonryList
-      data={DATA}
+      data={data}
       style={styles.container}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
