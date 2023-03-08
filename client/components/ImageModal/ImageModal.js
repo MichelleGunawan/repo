@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 export default function ImageModal({
@@ -19,24 +20,36 @@ export default function ImageModal({
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Image style={layout} source={{ uri: source }} />
       </TouchableOpacity>
-      <Modal visible={modalVisible}>
-        <View style={styles.modalContent}>
-          <TouchableOpacity onPress={() => setModalVisible(false)}>
-            <Text>Close Modal</Text>
-          </TouchableOpacity>
-        </View>
+
+      <Modal transparent={true} visible={modalVisible}>
+        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+          <View style={styles.modalContent}>
+            <Image style={styles.image} source={{ uri: source }} />
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}></TouchableOpacity>
+          </View>
+        </TouchableWithoutFeedback>
       </Modal>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  image: { width: "80%", height: "80%", borderRadius: 15 },
   modalContent: {
-    backgroundColor: "white",
-    padding: 22,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 4,
-    borderColor: "rgba(0, 0, 0, 0.1)",
+  },
+  button: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: "blue",
+    borderRadius: 5,
+  },
+  blurOverlay: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
