@@ -3,7 +3,8 @@ const router = express.Router();
 
 // import controllers
 const { uploadFile, getFile } = require("../controllers/routes");
-const { register, login, logout, getLoggedInUser, allUsers } = require("../controllers/user");
+const { register, login, logout, getLoggedInUser, allUsers, addPrompt, deletePrompt, addPhotoToPrompt, 
+    deletePhotoFromPrompt} = require("../controllers/user");
 const { addAlbum, addPhotos, getAlbum, getAllPhotos } = require("../controllers/album");
 const { addPhoto, deletePhoto, editCaption, addTags, deleteTags, getPhoto } = require("../controllers/photo");
 const { igSavedPosts } = require("../controllers/ig");
@@ -17,6 +18,10 @@ router.post("/register", userRegisterValidator, register);
 router.post("/login", login);
 router.get("/logout", logout);
 router.get("/user", verifyToken, userById, getLoggedInUser);
+router.post("/addPrompt", addPrompt);
+router.post("/deletePrompt", deletePrompt);
+router.post("/addPhotoToPrompt", addPhotoToPrompt);
+router.post("/deletePhotoFromPrompt", deletePhotoFromPrompt);
 
 //photo routes
 router.post("/upload", uploadFile);

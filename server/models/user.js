@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const uuidv1 = require("uuidv1");
 const crypto = require("crypto");
-const album = require('./album')
 
 const userSchema = new mongoose.Schema(
 	{
@@ -75,11 +74,16 @@ const userSchema = new mongoose.Schema(
 				ref: 'Albums'
 			}
 		],
+		// prompts: [{
+		// 	prompts: { type: String, 
+		// 	},
+		// 	photoIDs: { type: mongoose.Schema.Types.ObjectId, 
+		// 		ref: 'Photos' }
+		// }],
+		// keys are always strings. You specify the type of values using `of`.
 		prompts: [{
-			prompts: { type: String, 
-			},
-			albumIDs: { type: mongoose.Schema.Types.ObjectId, 
-				ref: 'Albums' }
+			type: mongoose.Schema.Types.ObjectId, 
+			ref: 'Prompts'
 		}],
 	},
 	{
