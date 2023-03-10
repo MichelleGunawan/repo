@@ -29,10 +29,6 @@ export default function ProfilePage() {
   ];
 
   const renderItem = ({ item }) => (
-    // <Image
-    //   source={{ uri: "https://picsum.photos/200/300" }}
-    //   style={[styles.item, { height: item.height, backgroundColor: "grey" }]}
-    // />
     <ImageModal
       layout={[styles.item, { height: item.height, backgroundColor: "grey" }]}
       modalVisible={modalVisible}
@@ -42,21 +38,19 @@ export default function ProfilePage() {
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <>
       <View style={styles.container}>
-        <View
-          style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end" }}>
+        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
           <CustomButton title="Follow" />
           <CustomButton title="Select" />
         </View>
         <View
           style={{
-            flex: 1,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
           }}>
-          <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons size={25} name="earth" />
             <Text style={{ marginLeft: 5, fontSize: 20 }}>Eatery</Text>
           </View>
@@ -78,9 +72,7 @@ export default function ProfilePage() {
         />
         <View
           style={{
-            flex: 1,
             flexDirection: "row",
-            justifyContent: "center",
             marginEnd: 120,
           }}>
           <Like />
@@ -89,7 +81,6 @@ export default function ProfilePage() {
         </View>
         <View
           style={{
-            flex: 1,
             flexDirection: "row",
             justifyContent: "flex-end",
             alignItems: "center",
@@ -107,16 +98,15 @@ export default function ProfilePage() {
         numColumns={2}
         columnWrapperStyle={styles.columnWrapper}
       />
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    maxHeight: 1000,
+    flexDirection: "column",
+    marginHorizontal: 10,
+    maxHeight: 200,
   },
   columnWrapper: {
     justifyContent: "space-between",
