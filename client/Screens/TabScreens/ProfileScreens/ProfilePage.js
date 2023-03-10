@@ -10,6 +10,7 @@ import ExpandableText from "../../../components/ExpendableText/ExpendableText";
 import ImageModal from "../../../components/ImageModal/ImageModal";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import { light_grey } from "../../../assets/colors";
+import BackButton from "../../../components/BackButton/BackButton";
 
 export default function ProfilePage() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,7 +42,13 @@ export default function ProfilePage() {
   return (
     <>
       <View style={styles.container}>
-        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}>
+          <BackButton />
           <CustomButton title="Follow" />
           <CustomButton title="Select" />
         </View>
@@ -107,7 +114,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     marginHorizontal: 10,
-    margin: 20,
+    marginTop: 40,
+    marginBottom: 5,
   },
   columnWrapper: {
     justifyContent: "space-between",
