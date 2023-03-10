@@ -48,7 +48,6 @@ export default function ProfilePage() {
             justifyContent: "flex-end",
             alignItems: "center",
           }}>
-          <BackButton />
           <CustomButton title="Follow" />
           <CustomButton title="Select" />
         </View>

@@ -29,7 +29,6 @@ export default function ImageModal({
             <Image style={styles.image} source={{ uri: source }} />
             <TouchableOpacity
               onPress={() => setModalVisible(false)}></TouchableOpacity>
-            <Button />
           </View>
         </TouchableWithoutFeedback>
       </Modal>
