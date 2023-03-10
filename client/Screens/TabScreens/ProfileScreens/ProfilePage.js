@@ -8,6 +8,7 @@ import { Subscribe } from "../../../components/Subscribe/subscribe";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ExpandableText from "../../../components/ExpendableText/ExpendableText";
 import ImageModal from "../../../components/ImageModal/ImageModal";
+import CustomButton from "../../../components/CustomButton/CustomButton";
 
 export default function ProfilePage() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -45,8 +46,8 @@ export default function ProfilePage() {
       <View style={styles.container}>
         <View
           style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end" }}>
-          <Button title="Follow" />
-          <Button title="Select" />
+          <CustomButton title="Follow" />
+          <CustomButton title="Select" />
         </View>
         <View
           style={{
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     marginRight: 10,
-    maxHeight: 220,
+    maxHeight: 1000,
   },
   columnWrapper: {
     justifyContent: "space-between",
