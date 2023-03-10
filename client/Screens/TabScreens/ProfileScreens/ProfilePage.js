@@ -9,6 +9,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import ExpandableText from "../../../components/ExpendableText/ExpendableText";
 import ImageModal from "../../../components/ImageModal/ImageModal";
 import CustomButton from "../../../components/CustomButton/CustomButton";
+import { light_grey } from "../../../assets/colors";
 
 export default function ProfilePage() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -85,10 +86,10 @@ export default function ProfilePage() {
             justifyContent: "flex-end",
             alignItems: "center",
           }}>
-          <Text style={{ color: "#6C757D", marginRight: 5 }}>
+          <Text style={{ color: light_grey, marginRight: 5 }}>
             {data.length}
           </Text>
-          <Icon color="#6C757D" size={15} name="image" />
+          <Icon color={light_grey} size={15} name="image" />
         </View>
       </View>
       <MasonryList

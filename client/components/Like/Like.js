@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { Animated, View, Text } from "react-native";
+import { primary } from "../../assets/colors";
 
 const AnimatedIcon = Animated.createAnimatedComponent(FontAwesome);
 
@@ -45,7 +46,7 @@ export const Like = ({ item, style }) => {
           opacity: reverseOpacity,
           transform: [{ scale }],
         }}
-        color="#B00000"
+        color={primary}
         onPress={() => {
           like(!liked);
           setLikesNum(likesNum - 1);
@@ -59,7 +60,7 @@ export const Like = ({ item, style }) => {
           opacity: opacity,
           transform: [{ scale }],
         }}
-        color="black"
+        color={primary}
         onPress={() => {
           like(!liked);
           setLikesNum(likesNum + 1);
