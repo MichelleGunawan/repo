@@ -29,7 +29,7 @@ function HomeStackScreen() {
 const ProfileStack = createNativeStackNavigator();
 function ProfileStackScreen() {
   return (
-    <ProfileStack.Navigator>
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
       <ProfileStack.Screen name="Profile" component={ProfileScreen} />
       <ProfileStack.Screen
         name="Edit Profile"

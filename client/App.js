@@ -15,7 +15,9 @@ export default function App() {
   return (
     <NavigationContainer>
       {/* change initial route name once login is set up*/}
-      <Stack.Navigator initialRouteName="TabRoutes">
+      <Stack.Navigator
+        initialRouteName="TabRoutes"
+        screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="TabRoutes"
           component={TabRoutes}

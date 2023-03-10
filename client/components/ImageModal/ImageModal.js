@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   Text,
   TouchableWithoutFeedback,
+  Button,
 } from "react-native";
+import CustomButton from "../CustomButton/CustomButton";
 
 export default function ImageModal({
   layout,
@@ -27,6 +29,7 @@ export default function ImageModal({
             <Image style={styles.image} source={{ uri: source }} />
             <TouchableOpacity
               onPress={() => setModalVisible(false)}></TouchableOpacity>
+            <Button />
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -35,7 +38,7 @@ export default function ImageModal({
 }
 
 const styles = StyleSheet.create({
-  image: { width: "80%", height: "80%", borderRadius: 15 },
+  image: { width: "85%", height: "75%", borderRadius: 15 },
   modalContent: {
     flex: 1,
     justifyContent: "center",

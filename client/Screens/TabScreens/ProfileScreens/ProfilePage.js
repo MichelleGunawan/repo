@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     marginHorizontal: 10,
-    maxHeight: 200,
+    margin: 20,
   },
   columnWrapper: {
     justifyContent: "space-between",
