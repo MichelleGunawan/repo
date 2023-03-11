@@ -3,9 +3,9 @@ const router = express.Router();
 
 // import controllers
 const { uploadFile, getFile } = require("../controllers/routes");
-const { register, login, logout, getLoggedInUser, allUsers, addPrompt, deletePrompt, addPhotoToPrompt, 
-    deletePhotoFromPrompt} = require("../controllers/user");
-const { addAlbum, addPhotos, getAlbum, getAllPhotos } = require("../controllers/album");
+const { register, login, logout, getLoggedInUser, allUsers, addPrompt, deletePrompt, addPhotoToPrompt,
+    deletePhotoFromPrompt } = require("../controllers/user");
+const { addAlbum, addPhotos, getAlbum, getAllPhotos, getAllAlbums } = require("../controllers/album");
 const { addPhoto, deletePhoto, editCaption, addTags, deleteTags, getPhoto } = require("../controllers/photo");
 const { igSavedPosts } = require("../controllers/ig");
 
@@ -23,6 +23,10 @@ router.post("/deletePrompt", deletePrompt);
 router.post("/addPhotoToPrompt", addPhotoToPrompt);
 router.post("/deletePhotoFromPrompt", deletePhotoFromPrompt);
 
+router.get("/bruh", (req, res) => {
+    res.send("bruh");
+});
+
 //photo routes
 router.post("/upload", uploadFile);
 router.get("/file", getFile);
@@ -38,6 +42,7 @@ router.post("/addAlbum", addAlbum);
 router.post("/addPhotos", addPhotos);
 router.get("/getAllPhotos", getAllPhotos);
 router.get("/getAlbum", getAlbum);
+router.get("/getAllAlbums", getAllAlbums);
 
 //other routes
 router.get("/allUsers", allUsers);//verifyToken, allUsers);

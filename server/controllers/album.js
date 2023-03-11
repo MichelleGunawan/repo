@@ -59,16 +59,29 @@ exports.addPhotos = async (req, res) => {
 };
 
 exports.getAllPhotos = async (req, res) => { 
-    const user = await User.findOne({"username": req.body.username});
+    // console.log(req.query)
+    const user = await User.findOne({"username": req.query.username});
+
+    if (!user) {
+        res.status(404).json({ message: "No User Found" })
+        return
+    }
     const allPhotosAlbum = await Album.findById(user.allPhotos);
+    // console.log(allPhotosAlbum)
     res.status(200).json(allPhotosAlbum);
 };
 
 exports.getAlbum = async (req, res) => { 
-    const user = await User.findOne({"username": req.body.username});
-    const album = await Album.findOne({name: req.body.name, owners: user });
+    const user = await User.findOne({"username": req.query.username});
+    const album = await Album.findOne({name: req.query.name, owners: user });
     res.status(200).json(album);
 };
+
+exports.getAllAlbums = async (req, res) => {
+    const user = await User.findOne({"username": req.query.username});
+    const albums = await Album.find({owners: user});
+    res.status(200).json(albums);
+}
 
 // exports.deletePhotos = async (req, res) => {
 //     const album = await Album.findOne({ "album": req.body.album});

@@ -31,23 +31,27 @@ export default function AlbumDisplay(props) {
         <View style={styles.albumsContainer}>
           <View key={props.id} style={styles.indivdualAlbums}>
             <View style={{ flexDirection: "row" }}>
-              {props.photos.slice(0, 1).map((photo) => (
-                <Image
-                  key={photo.id}
-                  source={{ uri: photo.thumbnailUrl }}
-                  style={styles.topLeft}
-                />
-              ))}
-              {props.photos.slice(1, 2).map((photo) => (
-                <Image
-                  key={photo.id}
-                  source={{ uri: photo.thumbnailUrl }}
-                  style={styles.topRight}
-                />
-              ))}
+              {props.photos.slice(0, 1).map((image) => {
+                return (
+                  <Image
+                    key={image._id}
+                    source={{ uri: `http://169.232.127.118:8000/file?photo=${image.photo}` }}
+                    style={styles.topLeft}
+                  />
+                )
+              })}
+              {props.photos.slice(1, 2).map((image) => {
+                return (
+                  <Image
+                    key={image._id}
+                    source={{ uri: `http://169.232.127.118:8000/file?photo=${image.photo}` }}
+                    style={styles.topLeft}
+                  />
+                )
+              })}
             </View>
             <View style={{ flexDirection: "row" }}>
-              {props.photos.slice(2, 3).map((photo) => (
+              {/* {props.photos.slice(2, 3).map((photo) => (
                 <Image
                   key={photo.id}
                   source={{ uri: photo.thumbnailUrl }}
@@ -60,10 +64,10 @@ export default function AlbumDisplay(props) {
                   source={{ uri: photo.thumbnailUrl }}
                   style={styles.bottomRight}
                 />
-              ))}
+              ))} */}
             </View>
             <View style={styles.albumTitle}>
-              <Text>{props.title.substring(0, 15) + "..."}</Text>
+              <Text>{props.title + "..."}</Text>
               {/* INCLUDE LOGIC TO EITHER SHOW GLOBE OR LOC OUTLINE */}
               <FontAwesome name="globe" size={16.67} />
               <MaterialCommunityIcons name="lock-outline" size={16.67} />

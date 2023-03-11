@@ -19,51 +19,80 @@ export default function AlbumTab() {
 
   const [albums, setAlbums] = useState([]);
 
-  useEffect(() => {
-    async function bruh() {
-      const result = await fetchData("http://172.28.6.53:8000/getAllPhotos");
-      console.log(result);
-    }
-    bruh();
-  }, []);
+  // useEffect(() => {
+
+  // }, []);
 
   const fetchData = () => {
-    fetch("https://jsonplaceholder.typicode.com/albums")
-      .then((response) => response.json())
-      .then((albums) => {
-        const albumsWithPhotos = albums.map((album) => {
-          return fetch(
-            `https://jsonplaceholder.typicode.com/albums/${album.id}/photos?`
-          )
-            .then((response) => response.json())
-            .then((photos) => {
-              return {
-                ...album,
-                photos,
-              };
-            });
-        });
+    // fetch("https://jsonplaceholder.typicode.com/albums")
+    //   .then((response) => response.json())
+    //   .then((albums) => {
+    //     const albumsWithPhotos = albums.map((album) => {
+    //       return fetch(
+    //         `https://jsonplaceholder.typicode.com/albums/${album.id}/photos?`
+    //       )
+    //         .then((response) => response.json())
+    //         .then((photos) => {
+    //           return {
+    //             ...album,
+    //             photos,
+    //           };
+    //         });
+    //     });
 
-        Promise.all(albumsWithPhotos)
-          .then((updatedAlbums) => setAlbums(updatedAlbums))
-          .catch((error) => console.error(error));
-      })
-      .catch((error) => console.error(error));
+    //     Promise.all(albumsWithPhotos)
+    //       .then((updatedAlbums) => setAlbums(updatedAlbums))
+    //       .catch((error) => console.error(error));
+    //   })
+    //   .catch((error) => console.error(error));
+
+    (async () => {
+      let url = new URL("http://169.232.127.118:8000/getAllAlbums");
+      url.searchParams.append("username", "ingtest");
+
+      const result = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }).then((response) => response.json());
+
+      for (let i = 0; i < result.length; i++) {
+        for (let j = 0; j < result[i].photos.length; j++) {
+          const image = await fetch(`http://169.232.127.118:8000/getPhoto?photo=${result[i].photos[j]}`, {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }).then((response) => response.json())
+
+          console.log(image.photo);
+          result[i].photos[j] = image.photo;
+        }
+      }
+
+      setAlbums(result);
+    })();
+
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const renderAlbums = ({ item }) => (
-    <View>
-      <AlbumDisplay id={item.id} title={item.title} photos={item.photos} />
-    </View>
-  );
+  const renderAlbums = ({ item }) => {
+    return (
+      <View>
+        <AlbumDisplay id={item._id} title={item.name} photos={item.photos} />
+      </View>
+    )
+  };
   return (
     <View style={styles.tabContainer}>
       <FlatList
-        data={albums.slice(0, 8)} // CHANGE THIS LINE, TAKE OUT SLICE
+        data={albums} // CHANGE THIS LINE, TAKE OUT SLICE
         numColumns={2}
         renderItem={renderAlbums}
         keyExtractor={(item) => item.id}

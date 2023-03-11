@@ -45,8 +45,8 @@ export default function InAlbum({ route, navigation }) {
       <View style={styles.individualAlbumPictureContatiner}>
         {photos.map((photo) => (
           <Image
-            key={photo.id}
-            source={{ uri: photo.thumbnailUrl }}
+            key={photo._id}
+            source={{ uri: `http://169.232.127.118:8000/file?photo=${photo.photo}` }}
             style={styles.individualPictures}
           />
         ))}

@@ -66,10 +66,10 @@ function getFileById(id) {
 }
 
 exports.getPhoto = async (req, res) => {
-    const photo = await Photo.findOne({ "photo": req.query.photo });
+    const photo = await Photo.findOne({ "_id": req.query.photo });
 
     // Log the photo document
-    console.log(photo);
+    // console.log(photo);
 
     if (photo == null) {
         res.status(404).json({ message: "No Photo Found" });
@@ -117,7 +117,6 @@ exports.deleteTags = async (req, res) => {
         res.status(404).json({ message: "No Photo Found" })
         return
     }
-    console.log("here")
     await Photo.updateOne({ _id: photo }, { $pullAll: { tags: req.body.tags } })
     photo.save();
 
